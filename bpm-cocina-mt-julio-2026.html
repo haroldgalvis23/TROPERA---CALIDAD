@@ -717,7 +717,34 @@ body {
 
 </style>
 </head>
-<body>
+<body><style>
+.tropera-back-bar{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  height:40px;
+  background:rgba(43,74,43,0.96);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;padding:0 24px;
+}
+.tropera-back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.8);text-decoration:none;
+  transition:color .2s;
+}
+.tropera-back-link:hover{color:#fff;}
+.tropera-back-link svg{flex-shrink:0;transition:transform .2s;}
+.tropera-back-link:hover svg{transform:translateX(-3px);}
+.tropera-back-sep{color:rgba(255,255,255,.25);margin:0 10px;font-size:.6rem;}
+.tropera-back-current{font-size:.56rem;color:rgba(255,255,255,.4);letter-spacing:.15em;text-transform:uppercase;}
+</style>
+<div class="tropera-back-bar">
+  <a href="index.html" class="tropera-back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Registro de Calidad
+  </a>
+</div>
+
 
 <!-- PORTADA -->
 <section class="portada">
