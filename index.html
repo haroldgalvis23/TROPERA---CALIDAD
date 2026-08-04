@@ -192,9 +192,9 @@ footer{border-top:1px solid var(--borde);padding:28px clamp(24px,6vw,64px);displ
     Tropera<small>Informes de Calidad</small>
   </a>
   <ul class="nav-links" id="nav-home-links">
-    <li><button onclick="irA('sai')">SAI Boliches</button></li>
-    <li><button onclick="irA('franquicias')">Franquicias</button></li>
-    <li><button onclick="irA('cocina')">Cocina Tropera</button></li>
+    <li><button onclick="navToCarousel(0)">SAI Boliches</button></li>
+    <li><button onclick="navToCarousel(1)">Franquicias</button></li>
+    <li><button onclick="navToCarousel(2)">Cocina Tropera</button></li>
   </ul>
   <button class="nav-back" id="nav-back" onclick="navBack()">← Atrás</button>
 </nav>
@@ -750,6 +750,22 @@ function carGo(idx)   { carIdx = idx; carRender(); }
 function carClick(idx) {
   if (idx === carIdx) irA(carTargets[idx]);
   else { carIdx = idx; carRender(); }
+}
+function navToCarousel(idx) {
+  if (!document.getElementById('vista-home').classList.contains('activa')) {
+    // ir a home sin pushState extra
+    Object.values(vistas).forEach(v => document.getElementById(v).classList.remove('activa'));
+    document.getElementById('vista-home').classList.add('activa');
+    document.getElementById('nav-home-links').style.display='';
+    document.getElementById('nav-back').classList.remove('visible');
+    window.scrollTo(0,0);
+  }
+  carIdx = idx;
+  carRender();
+  setTimeout(function(){
+    var el = document.querySelector('.carousel-wrap');
+    if (el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 80);
 }
 </script>
 </body>
