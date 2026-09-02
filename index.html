@@ -295,6 +295,16 @@ footer{border-top:1px solid var(--borde);padding:28px clamp(24px,6vw,64px);displ
       <span class="red-sub">6 boliches · Julio–Agosto 2026</span>
       <div class="red-divider"></div>
     </div>
+    <!-- Radar Red -->
+    <div style="max-width:500px;margin:0 auto 8px;padding:0 16px 24px;">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;font-size:12px;color:#888;margin-bottom:10px;">
+        <span style="display:flex;align-items:center;gap:5px;"><span style="width:22px;border-top:2px dashed #2a78d6;display:inline-block;"></span>Julio 2026</span>
+        <span style="display:flex;align-items:center;gap:5px;"><span style="width:22px;height:2px;background:#eb6834;display:inline-block;border-radius:2px;"></span>Agosto 2026</span>
+      </div>
+      <div style="position:relative;width:100%;height:320px;">
+        <canvas id="radarRed" role="img" aria-label="Gráfico radar SAI por boliche Julio vs Agosto 2026"></canvas>
+      </div>
+    </div>
     <!-- SAI Carousel -->
     <div class="sai-carousel-wrap">
       <button class="car-btn car-prev" onclick="saiMove(-1)">&#8249;</button>
@@ -860,6 +870,69 @@ function renderCharts(id) {
   initChart('taberna_nose', ["Julio 2026","Agosto 2026"], [77,74], '#C62828');
   initChart('mamma_gaucha', ["Agosto 2026"], [61], '#C62828');
 }
+
+
+// ── Radar Red ──
+(function(){
+  var ctx = document.getElementById('radarRed');
+  if(!ctx) return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Biergarten','Club Alemán','La Independiente','Mesa Tropera','Taberna Nose','Mamma Gaucha'],
+      datasets: [
+        {
+          label: 'Julio 2026',
+          data: [94,89,83,83,77,null],
+          borderColor: '#2a78d6',
+          backgroundColor: 'rgba(42,120,214,0.10)',
+          pointBackgroundColor: '#2a78d6',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          borderWidth: 2,
+          borderDash: [6,3]
+        },
+        {
+          label: 'Agosto 2026',
+          data: [83,84,86,88,74,61],
+          borderColor: '#eb6834',
+          backgroundColor: 'rgba(235,104,52,0.10)',
+          pointBackgroundColor: '#eb6834',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              var v = ctx.raw;
+              return v === null ? ctx.dataset.label + ': sin auditoría' : ctx.dataset.label + ': ' + v + '%';
+            }
+          }
+        }
+      },
+      scales: {
+        r: {
+          min: 50,
+          max: 100,
+          ticks: { stepSize: 10, color: '#999', font: { size: 10 }, backdropColor: 'transparent', callback: function(v){ return v+'%'; } },
+          grid: { color: 'rgba(150,148,140,0.2)' },
+          angleLines: { color: 'rgba(150,148,140,0.25)' },
+          pointLabels: { color: '#555', font: { size: 11, weight: '500' } }
+        }
+      }
+    }
+  });
+})();
 
 // ── Carousel ──
 let carIdx = 0;
